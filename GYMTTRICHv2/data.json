@@ -1,0 +1,157 @@
+{
+  "profile": {
+    "height_cm": 178,
+    "body_type": "Ectomorph",
+    "goal": "Hypertrophy",
+    "start_date": "2025-01-01"
+  },
+  "measurements": [
+    {
+      "date": "2025-10-01",
+      "weight_kg": 54.5,
+      "body": {
+        "arm": 27.5,
+        "forearm": 20,
+        "chest": 86,
+        "abdomen": 72,
+        "hip": 84.5,
+        "leg": 46,
+        "calf": 29
+      },
+      "skinfolds": {
+        "biceps": 4,
+        "forearm": 4,
+        "subscapular": 10,
+        "iliac_crest": 16,
+        "abdominal": 21,
+        "femoral": 10
+      }
+    },
+    {
+      "date": "2025-11-01",
+      "weight_kg": 57,
+      "body": {
+        "arm": 30.5,
+        "forearm": 23,
+        "chest": 94,
+        "abdomen": 71,
+        "hip": 86.5,
+        "leg": 48,
+        "calf": 30
+      },
+      "skinfolds": {
+        "biceps": 4,
+        "forearm": 4,
+        "subscapular": 10,
+        "iliac_crest": 19,
+        "abdominal": 22,
+        "femoral": 11
+      }
+    },
+    {
+      "date": "2025-12-01",
+      "weight_kg": 61.1,
+      "body": {
+        "arm": 30.5,
+        "forearm": 23,
+        "chest": 97,
+        "abdomen": 70,
+        "hip": 89.5,
+        "leg": 49,
+        "calf": 30
+      },
+      "skinfolds": {
+        "biceps": 4,
+        "forearm": 4,
+        "subscapular": 10,
+        "iliac_crest": 19,
+        "abdominal": 22,
+        "femoral": 11
+      }
+    }
+  ],
+  "strength": [
+    {
+      "date": "2025-10-01",
+      "exercises": {
+        "bench_press": 10,
+        "incline_press": 10,
+        "row": 10,
+        "pull_up": 25,
+        "squat": 25,
+        "leg_press": 90,
+        "deadlift": 45,
+        "bicep_curl": 5,
+        "tricep_pushdown": 5
+      }
+    },
+    {
+      "date": "2025-11-01",
+      "exercises": {
+        "bench_press": 25,
+        "incline_press": 15,
+        "row": 20,
+        "pull_up": 40,
+        "squat": 45,
+        "leg_press": 135,
+        "deadlift": 45,
+        "bicep_curl": 10,
+        "tricep_pushdown": 45
+      }
+    },
+    {
+      "date": "2025-11-24",
+      "exercises": {
+        "bench_press": 35,
+        "incline_press": 25,
+        "row": 25,
+        "pull_up": 60,
+        "squat": 55,
+        "leg_press": 180,
+        "deadlift": 65,
+        "bicep_curl": 15,
+        "tricep_pushdown": 60
+      }
+    },
+    {
+      "date": "2025-12-10",
+      "exercises": {
+        "bench_press": 45,
+        "incline_press": 25,
+        "row": 25,
+        "pull_up": 60,
+        "squat": 55,
+        "leg_press": 180,
+        "deadlift": 75,
+        "bicep_curl": 15,
+        "tricep_pushdown": 70
+      }
+    }
+  ],
+  "calisthenics": [
+    {
+      "date": "2025-10-01",
+      "handstand_sec": 0,
+      "l_sit_sec": 0,
+      "push_ups_reps": 12,
+      "pull_ups_reps": 3,
+      "v_sit_sec": 0
+    },
+    {
+      "date": "2025-12-10",
+      "handstand_sec": 2.4,
+      "l_sit_sec": 1,
+      "push_ups_reps": 22,
+      "pull_ups_reps": 7,
+      "v_sit_sec": 1.2
+    },
+    {
+      "date": "2025-01-04",
+      "handstand_sec": 5.4,
+      "l_sit_sec": 2.87,
+      "push_ups_reps": 51,
+      "pull_ups_reps": 8,
+      "v_sit_sec": 21.67
+    }
+  ]
+}

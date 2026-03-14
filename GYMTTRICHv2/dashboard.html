@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keep Striving!</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="./js/entries/forms.css">
+
+    <!-- Favicon -->
+    <link rel="icon" href="./css/assets/logo-pwa.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./css/assets/logo-pwa.png">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#0f0f10">
+    <link rel="stylesheet" href="css/splash.css">
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registered successfully:', registration.scope);
+
+                        // Check for updates
+                        registration.addEventListener('updatefound', () => {
+                            const newWorker = registration.installing;
+                            console.log('🔄 New Service Worker version found');
+
+                            newWorker.addEventListener('statechange', () => {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    // New version available, notify user
+                                    console.log('✨ New version available! Refresh to update.');
+                                    // You can show a toast notification here
+                                }
+                            });
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('❌ Service Worker registration failed:', error);
+                    });
+            });
+        }
+    </script>
+
+
+    <script>
+        const session = sessionStorage.getItem('session');
+        const currentPath = window.location.pathname;
+        const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+
+        if (session !== '1') {
+            window.location.href = basePath + 'index.html';
+        }
+    </script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+</head>
+
+<body>
+
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <div class="splash-logo-container">
+            <img src="css/assets/logo.jpeg" alt="GYMTTRICH Logo" class="splash-logo">
+        </div>
+        <div class="splash-loader"></div>
+    </div>
+
+    <script>
+        // Splash Screen Logic
+        window.addEventListener('load', () => {
+            const splash = document.getElementById('splash-screen');
+            setTimeout(() => {
+                splash.classList.add('fade-out');
+                setTimeout(() => {
+                    splash.style.display = 'none';
+                }, 600);
+            }, 1000); // Shorter for dashboard
+        });
+    </script>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="ph-fill ph-barbell"></i>
+                <span>GYMTTRICH</span>
+            </div>
+
+            <ul class="nav-links">
+                <li class="active" data-section="dashboard">
+                    <i class="ph ph-squares-four"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li data-section="profile">
+                    <i class="ph ph-scales"></i>
+                    <span>Measures</span>
+                </li>
+                <li data-section="strength">
+                    <i class="ph ph-trend-up"></i>
+                    <span>Strength</span>
+                </li>
+                <li data-section="calisthenics">
+                    <i class="ph ph-lightning"></i>
+                    <span>Calisthenics</span>
+                </li>
+                <li data-section="recommendations">
+                    <i class="ph ph-lightbulb"></i>
+                    <span>Advice</span>
+                </li>
+                <li data-section="settings">
+                    <i class="ph ph-plus"></i>
+                    <span>Entries</span>
+                </li>
+            </ul>
+
+            <div class="user-mini-profile">
+                <div class="avatar">AD</div>
+                <div class="info">
+                    <span class="name">Dittrich</span>
+                    <span class="role">Ectomorph</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- SECTION: Dashboard -->
+            <section id="dashboard" class="content-section active">
+                <header class="section-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p class="subtitle">Overview of your physical evolution</p>
+                    </div>
+                    <div class="date-badge">
+                        <i class="ph ph-calendar-blank"></i>
+                        <span id="current-date-display">--</span>
+                    </div>
+                </header>
+
+                <div class="stats-grid">
+                    <!-- Weight Card -->
+                    <div class="stat-card primary">
+                        <div class="stat-icon"><i class="ph ph-scales"></i></div>
+                        <div class="stat-info">
+                            <span class="label">Current Weight</span>
+                            <div class="value-group">
+                                <span class="value" id="dash-weight">--</span>
+                                <span class="unit">kg</span>
+                            </div>
+                            <span class="trend" id="dash-weight-trend">-- vs last</span>
+                        </div>
+                    </div>
+
+                    <!-- IMC Card -->
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="ph ph-heartbeat"></i></div>
+                        <div class="stat-info">
+                            <span class="label">BMI (IMC)</span>
+                            <div class="value-group">
+                                <span class="value" id="dash-bmi">--</span>
+                            </div>
+                            <span class="trend" id="dash-bmi-status">Normal</span>
+                        </div>
+                    </div>
+
+                    <!-- Key Gains -->
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="ph ph-ruler"></i></div>
+                        <div class="stat-info">
+                            <span class="label">Key Gains (Last)</span>
+                            <div class="mini-stats">
+                                <div class="mini-stat">
+                                    <span>Arm</span>
+                                    <strong id="dash-arm">--</strong>
+                                </div>
+                                <div class="mini-stat">
+                                    <span>Chest</span>
+                                    <strong id="dash-chest">--</strong>
+                                </div>
+                                <div class="mini-stat">
+                                    <span>Leg</span>
+                                    <strong id="dash-leg">--</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="labels-progress-bars-container">
+                    <p>Body fat</p>
+                    <p>Weight</p>
+                </div>
+
+                <div class="progress-bars-container">
+
+                    <div class="progress-gradient-bars">
+                        <div id="bodyfatGrid" class="ideal-weight-grid">
+
+                            <div class="user-marker" id="weight-marker"></div>
+
+                            <i class="ph ph-arrow-down i-w-icons" title="Grasa alta"></i>
+
+                            <div id="bodyfat1" class="weight-bar red-weight-bar"></div>
+                            <div id="bodyfat2" class="weight-bar orange-weight-bar"></div>
+                            <div id="bodyfat3" class="weight-bar yellow-weight-bar"></div>
+                            <div id="bodyfat4" class="weight-bar green-weight-bar"></div>
+                            <div id="bodyfat5" class="weight-bar best-weight-bar"></div>
+                            <div id="bodyfat6" class="weight-bar green-weight-bar"></div>
+                            <div id="bodyfat7" class="weight-bar yellow-weight-bar"></div>
+                            <div id="bodyfat8" class="weight-bar orange-weight-bar"></div>
+                            <div id="bodyfat9" class="weight-bar red-weight-bar"></div>
+
+                            <i class="ph ph-arrow-up i-w-icons" title="Grasa baja"></i>
+
+                        </div>
+                    </div>
+
+                    <div class="progress-gradient-bars">
+                        <div id="weightGrid" class="ideal-weight-grid">
+
+                            <div class="user-marker" id="weight-marker"></div>
+
+                            <i class="ph ph-arrow-down i-w-icons" title="Peso bajo"></i>
+
+                            <div id="weight1" class="weight-bar red-weight-bar"></div>
+                            <div id="weight2" class="weight-bar orange-weight-bar"></div>
+                            <div id="weight3" class="weight-bar yellow-weight-bar"></div>
+                            <div id="weight4" class="weight-bar green-weight-bar"></div>
+                            <div id="weight5" class="weight-bar best-weight-bar"></div>
+                            <div id="weight6" class="weight-bar green-weight-bar"></div>
+                            <div id="weight7" class="weight-bar yellow-weight-bar"></div>
+                            <div id="weight8" class="weight-bar orange-weight-bar"></div>
+                            <div id="weight9" class="weight-bar red-weight-bar"></div>
+
+                            <i class="ph ph-arrow-up i-w-icons" title="Peso alto"></i>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="progress-gradient-bars">
+                    <div class="ideal-weight-bar">
+                        <div class="gradient-container">
+                            <div class="i-w-gradient"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-gradient-bars">
+                    <div class="ideal-weight-grid">
+
+                        <i class="ph ph-arrow-down i-w-icons"></i>
+
+                         <div class="weight-bar red-weight-bar"></div>
+                         <div class="weight-bar orange-weight-bar"></div>
+                         <div class="weight-bar yellow-weight-bar"></div>
+                         <div class="weight-bar green-weight-bar"></div>
+                         <div class="weight-bar best-weight-bar"></div>
+                         <div class="weight-bar green-weight-bar"></div>
+                         <div class="weight-bar yellow-weight-bar"></div>
+                         <div class="weight-bar orange-weight-bar"></div>
+                         <div class="weight-bar red-weight-bar"></div>
+
+                         <i class="ph ph-arrow-up i-w-icons"></i>
+
+                    </div>
+                </div> -->
+
+                <div class="charts-row">
+                    <div class="chart-container large">
+                        <h3>Weight Evolution</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="weightChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Insights Section -->
+                <div class="insights-section">
+                    <div class="section-header-enhanced">
+                        <div class="header-content">
+                            <div class="icon-badge">
+                                <i class="ph ph-brain"></i>
+                            </div>
+                            <div>
+                                <h2>Performance Insights</h2>
+                                <p class="insights-subtitle">AI-powered analysis of your training data</p>
+                            </div>
+                        </div>
+                        <div class="insights-meta" id="insights-meta">
+                            <span class="meta-item">
+                                <i class="ph ph-calendar-blank"></i>
+                                <span id="insights-date">--</span>
+                            </span>
+                            <span class="meta-item">
+                                <i class="ph ph-chart-line"></i>
+                                <span id="insights-count">0 insights</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="insights-grid" id="insights-container">
+                        <!-- JS will populate cards here -->
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- SECTION: Body Profile -->
+            <section id="profile" class="content-section">
+                <header class="section-header">
+                    <h1>Body Profile</h1>
+                    <p class="subtitle">Detailed measurements and skinfolds history</p>
+                </header>
+
+                <div class="profile-bento-grid">
+                    <div class="profile-card">
+                        <div class="profile-icon"><i class="ph ph-ruler"></i></div>
+                        <div class="profile-data">
+                            <span class="label">Height</span>
+                            <div><strong id="profile-height">--</strong> cm</div>
+                        </div>
+                    </div>
+                    <div class="profile-card">
+                        <div class="profile-icon"><i class="ph ph-users"></i></div>
+                        <div class="profile-data">
+                            <span class="label">Body Type</span>
+                            <div><strong id="profile-type">--</strong></div>
+                        </div>
+                    </div>
+                    <div class="profile-card">
+                        <div class="profile-icon"><i class="ph ph-target"></i></div>
+                        <div class="profile-data">
+                            <span class="label">Goal</span>
+                            <div><strong id="profile-goal">--</strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="charts-grid two-col">
+                    <div class="chart-container">
+                        <h3>Upper Body (cm)</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="upperBodyChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Lower Body (cm)</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="lowerBodyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h3>Measurement History</h3>
+                    <div class="table-wrapper">
+                        <table id="measurements-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Weight</th>
+                                    <th>Arm</th>
+                                    <th>Forearm</th>
+                                    <th>Chest</th>
+                                    <th>Abd</th>
+                                    <th>Hip</th>
+                                    <th>Leg</th>
+                                    <th>Calf</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="charts-row">
+                    <div class="chart-container">
+                        <h3>Skinfolds (mm) - Body Fat Indicators</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="skinfoldsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h3>Skinfolds History</h3>
+                    <div class="table-wrapper">
+                        <table id="skinfolds-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Arm</th>
+                                    <th>4Arm</th>
+                                    <th>Sub</th>
+                                    <th>Crest</th>
+                                    <th>Abs</th>
+                                    <th>Leg</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- SECTION: Strength -->
+            <section id="strength" class="content-section">
+                <header class="section-header">
+                    <h1>Strength Progress</h1>
+                    <p class="subtitle">Tracking weights on key compound movements</p>
+                </header>
+
+                <div class="charts-grid two-col">
+                    <div class="chart-container">
+                        <h3>Big 3 (Bench, Squat, Deadlift)</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="bigThreeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Accessory Lifts</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="accessoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h3>Training Log</h3>
+                    <div class="table-wrapper">
+                        <table id="strength-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Militar</th>
+                                    <th>Bench Press</th>
+                                    <th>Pull ups</th>
+                                    <th>Curl</th>
+                                    <th>Extension</th>
+                                    <th>Deadlift</th>
+                                    <th>Press</th>
+                                    <th>Squat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Recommendations -->
+            <section id="recommendations" class="content-section">
+                <header class="section-header">
+                    <h1>Recommendations</h1>
+                    <p class="subtitle">Tailored advice for Ectomorph Hypertrophy</p>
+                </header>
+
+                <div class="recommendations-grid">
+                    <div class="rec-card accent">
+                        <div class="icon"><i class="ph ph-lightning"></i></div>
+                        <h3>Training Principles</h3>
+                        <ul>
+                            <li><strong>Focus on Compound Lifts:</strong> Prioritize multi-joint movements (Squats,
+                                Deadlifts, Bench, Rows) to stimulate maximum muscle fibers.</li>
+                            <li><strong>Progressive Overload:</strong> You must increase weight, reps, or improve form
+                                every session. Strength gains drive size gains.</li>
+                            <li><strong>Volume Management:</strong> As an ectomorph, avoid excessive cardio. Keep
+                                sessions intense but under 60-75 minutes.</li>
+                            <li><strong>Rest:</strong> Muscles grow during rest, not training. Aim for at least 48h rest
+                                between hitting the same muscle group.</li>
+                        </ul>
+                    </div>
+
+                    <div class="rec-card">
+                        <div class="icon"><i class="ph ph-fork-knife"></i></div>
+                        <h3>Nutrition Basics</h3>
+                        <ul>
+                            <li><strong>Caloric Surplus:</strong> You need to eat more than you burn. Add 300-500 kcal
+                                above maintenance.</li>
+                            <li><strong>Protein:</strong> Aim for 1.6g to 2.2g per kg of bodyweight.</li>
+                            <li><strong>Carbs are Fuel:</strong> Don't fear carbs. They spare protein for muscle
+                                building and fuel intense workouts.</li>
+                        </ul>
+                    </div>
+
+                    <div class="rec-card">
+                        <div class="icon"><i class="ph ph-barbell"></i></div>
+                        <h3>Routine Structure (Example)</h3>
+                        <div class="routine-example">
+                            <p><strong>Frequency:</strong> Upper / Lower Split (4 days) or PPL (3-6 days).</p>
+                            <p><strong>Reps:</strong> 6-12 range for hypertrophy. 1-5 for strength.</p>
+                            <p><strong>Sets:</strong> 10-20 weekly sets per muscle group.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION: Calisthenics -->
+            <section id="calisthenics" class="content-section">
+                <header class="section-header">
+                    <div>
+                        <h1>Calisthenics</h1>
+                        <p class="subtitle">Skill progression and endurance tracking</p>
+                    </div>
+                </header>
+
+                <!-- Bento Grid -->
+                <div class="bento-grid">
+                    <!-- Left Column (50% w) -->
+                    <div class="bento-col left-col">
+                        <!-- Handstand (50% h) -->
+                        <div class="stat-card calisthenic handstand">
+                            <div class="card-content">
+                                <div class="header-row">
+                                    <div class="icon-box"><i class="ph ph-hand-fist"></i></div>
+                                    <span class="card-title">Handstand</span>
+                                </div>
+                                <div class="main-metric">
+                                    <span class="value" id="cali-handstand">--:--.--</span>
+                                    <span class="unit-label">seconds</span>
+                                </div>
+                                <i class="ph ph-timer timer-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Push-Ups (50% h) -->
+                        <div class="stat-card calisthenic pushups">
+                            <div class="card-content">
+                                <div class="header-row">
+                                    <div class="icon-box"><i class="ph ph-person-arms-spread"></i></div>
+                                    <span class="card-title">Push-Ups</span>
+                                </div>
+                                <div class="main-metric">
+                                    <span class="value" id="cali-pushups">--</span>
+                                    <span class="unit-label">reps</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column (50% w) -->
+                    <div class="bento-col right-col">
+                        <!-- L-Sit (33% h) -->
+                        <div class="stat-card calisthenic l-sit">
+                            <div class="card-content">
+                                <div class="header-row">
+                                    <div class="icon-box"><i class="ph ph-chair"></i></div>
+                                    <span class="card-title">L-Sit</span>
+                                </div>
+                                <div class="main-metric">
+                                    <span class="value" id="cali-lsit">--:--.--</span>
+                                    <span class="unit-label">seconds</span>
+                                </div>
+                                <i class="ph ph-timer timer-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Pull-Ups (33% h) -->
+                        <div class="stat-card calisthenic pullups">
+                            <div class="card-content">
+                                <div class="header-row">
+                                    <div class="icon-box"><i class="ph ph-arrow-up"></i></div>
+                                    <span class="card-title">Pull-Ups</span>
+                                </div>
+                                <div class="main-metric">
+                                    <span class="value" id="cali-pullups">--</span>
+                                    <span class="unit-label">reps</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- V-Sit (33% h) -->
+                        <div class="stat-card calisthenic vsit">
+                            <div class="card-content">
+                                <div class="header-row">
+                                    <div class="icon-box"><i class="ph ph-check"></i></div>
+                                    <span class="card-title">V-Sit</span>
+                                </div>
+                                <div class="main-metric">
+                                    <span class="value" id="cali-vsit">--:--.--</span>
+                                    <span class="unit-label">seconds</span>
+                                </div>
+                                <i class="ph ph-timer timer-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="section-divider">
+                    <h2>Progress Tracking</h2>
+                </div>
+
+                <div class="charts-grid-cali">
+                    <div class="chart-container">
+                        <h3>Handstand Progress</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="handstandChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>L-Sit Progress</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="lsitChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Push-Ups Progress</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="pushupsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Pull-Ups Progress</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="pullupsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>V-Sit Progress</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="vsitChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden Tips Section -->
+                <div class="tips-section-wrapper">
+                    <button id="toggle-tips-btn" class="btn outline tips-btn">
+                        <i class="ph ph-lightbulb"></i> View Complete Calisthenics Guide
+                    </button>
+
+                    <div id="calisthenics-tips" class="tips-content hidden">
+                        <!-- Beginner Fundamentals -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-plant"></i> Beginner Fundamentals</h4>
+                            <ul>
+                                <li><strong>Consistency Over Intensity:</strong> Practice skills 3-5 times per week.
+                                    Quality reps beat exhaustion every time.</li>
+                                <li><strong>Warm Up Properly:</strong> Spend 10-15 minutes on wrist circles, shoulder
+                                    rotations, and light cardio before training.</li>
+                                <li><strong>Master the Basics First:</strong> Build a solid foundation with push-ups,
+                                    pull-ups, and planks before attempting advanced skills.</li>
+                                <li><strong>Listen to Your Body:</strong> Joint pain is a red flag. Stop immediately and
+                                    rest if you feel sharp pain.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Skill Progressions -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-trend-up"></i> Skill Progressions</h4>
+                            <ul>
+                                <li><strong>Handstand Path:</strong> Wall holds (30s) → Chest-to-wall (45s) →
+                                    Back-to-wall (30s) → Free-standing attempts (10s+)</li>
+                                <li><strong>L-Sit Path:</strong> Tuck L-sit (20s) → One leg extended (15s each) → Full
+                                    L-sit (10s+)</li>
+                                <li><strong>Push-Up Variations:</strong> Incline → Standard → Diamond → Archer → One-arm
+                                    progressions</li>
+                                <li><strong>Pull-Up Path:</strong> Dead hangs → Negatives (5s down) → Band-assisted →
+                                    Full pull-ups → Weighted</li>
+                                <li><strong>V-Sit Path:</strong> Master L-sit first → Pike compression drills → V-sit
+                                    attempts with bent knees → Full V-sit</li>
+                            </ul>
+                        </div>
+
+                        <!-- Form & Technique -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-check-circle"></i> Form & Technique</h4>
+                            <ul>
+                                <li><strong>Hollow Body Position:</strong> Core tight, ribs down, posterior pelvic tilt.
+                                    This is the foundation of all skills.</li>
+                                <li><strong>Scapular Control:</strong> Learn to protract and retract shoulder blades.
+                                    Essential for push-ups and handstands.</li>
+                                <li><strong>Straight Line:</strong> In handstands and planks, maintain a straight line
+                                    from head to heels. No banana backs!</li>
+                                <li><strong>Full Range of Motion:</strong> Chest to bar on pull-ups, chest to floor on
+                                    push-ups. Half reps = half results.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Programming & Volume -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-calendar"></i> Programming Tips</h4>
+                            <ul>
+                                <li><strong>Skill Work First:</strong> Practice handstands and L-sits when fresh, before
+                                    strength work.</li>
+                                <li><strong>Greasing the Groove:</strong> Do multiple low-rep sets throughout the day
+                                    for skill mastery.</li>
+                                <li><strong>Deload Weeks:</strong> Every 4-6 weeks, reduce volume by 40-50% to allow
+                                    full recovery.</li>
+                                <li><strong>Track Everything:</strong> Log your max holds, reps, and progressions. What
+                                    gets measured gets improved.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Recovery & Injury Prevention -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-first-aid"></i> Recovery & Prevention</h4>
+                            <ul>
+                                <li><strong>Rest Days Matter:</strong> Muscles grow during rest, not training. Take 1-2
+                                    full rest days per week.</li>
+                                <li><strong>Mobility Work:</strong> Spend 10-15 minutes daily on stretching, especially
+                                    shoulders, wrists, and hip flexors.</li>
+                                <li><strong>Antagonist Training:</strong> Balance pushing with pulling. For every
+                                    push-up set, do a pull or row.</li>
+                                <li><strong>Ice & Heat:</strong> Ice for acute pain/swelling. Heat for chronic stiffness
+                                    and before training.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Nutrition for Calisthenics -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-fork-knife"></i> Nutrition Essentials</h4>
+                            <ul>
+                                <li><strong>Protein Timing:</strong> Consume 20-40g protein within 2 hours post-workout
+                                    for optimal recovery.</li>
+                                <li><strong>Carbs for Energy:</strong> Don't fear carbs. They fuel intense training and
+                                    spare protein for muscle building.</li>
+                                <li><strong>Hydration:</strong> Drink 3-4 liters of water daily. Dehydration kills
+                                    performance and recovery.</li>
+                                <li><strong>Micronutrients:</strong> Magnesium and zinc support muscle recovery.
+                                    Consider supplementation if deficient.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Mental Game -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-brain"></i> Mental Approach</h4>
+                            <ul>
+                                <li><strong>Patience is Key:</strong> Advanced skills take months or years. Celebrate
+                                    small wins along the way.</li>
+                                <li><strong>Visualization:</strong> Spend 5 minutes daily visualizing perfect form.
+                                    Mental practice builds neural pathways.</li>
+                                <li><strong>Film Yourself:</strong> Record your attempts. You'll spot form issues you
+                                    can't feel in the moment.</li>
+                                <li><strong>Community Support:</strong> Join calisthenics groups online or locally.
+                                    Shared struggles accelerate progress.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Common Mistakes -->
+                        <div class="tip-card">
+                            <h4><i class="ph ph-warning"></i> Avoid These Mistakes</h4>
+                            <ul>
+                                <li><strong>Skipping Warm-Ups:</strong> Cold muscles and joints are injury-prone. Always
+                                    warm up for 10+ minutes.</li>
+                                <li><strong>Ego Training:</strong> Don't rush progressions. Master each step before
+                                    moving to the next.</li>
+                                <li><strong>Neglecting Legs:</strong> Don't skip leg day! Pistol squats and jump
+                                    training build complete athleticism.</li>
+                                <li><strong>Overtraining:</strong> More isn't always better. Quality over quantity. Rest
+                                    is when you grow stronger.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- SECTION: Data entries -->
+            <section id="settings" class="content-section">
+
+                <header class="section-header">
+                    <div>
+                        <h1>Entries</h1>
+                        <p class="subtitle">Add or edit your training data</p>
+                    </div>
+                    <div class="entries-badge">
+                        <i class="ph ph-database"></i>
+                        <span>Data Management</span>
+                    </div>
+                </header>
+
+                <!-- NOTIFICATIONS PANEL -->
+                <div id="notification-panel" class="rec-card"
+                    style="margin-bottom: 24px; border-color: var(--primary);">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3><i class="ph ph-bell-ringing" style="color: var(--primary);"></i> Notificaciones</h3>
+                        <span id="notification-status" class="trend">Verificando...</span>
+                    </div>
+                    <p style="color: var(--text-muted); margin-bottom: 16px;">
+                        Activa las alertas para recibir recordatorios de entrenamiento y consejos. (Requiere añadir a
+                        Pantalla de Inicio en iOS).
+                    </p>
+                    <div class="actions">
+                        <button id="btn-enable-notifications" class="btn primary">
+                            <i class="ph ph-check"></i> Activar Notificaciones
+                        </button>
+                        <button id="btn-test-notification" class="btn outline" style="display: none;">
+                            <i class="ph ph-paper-plane-tilt"></i> Probar Alerta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- HUB -->
+                <div class="entries-hub" id="entries-hub"></div>
+
+                <!-- MODAL OVERLAY -->
+                <div class="entries-overlay hidden" id="entries-overlay">
+                    <div class="entries-modal" id="entries-modal">
+                        <!-- JS injects forms here -->
+                    </div>
+                </div>
+
+            </section>
+
+
+        </main>
+    </div>
+
+    <!-- <section id="user-profile">
+        <h2>Perfil</h2>
+      
+        <form id="userForm">
+          <label>
+            Estatura (cm)
+            <input type="number" id="height_cm" required />
+          </label>
+      
+          <label>
+            Complexión
+            <input type="text" id="body_type" />
+          </label>
+      
+          <label>
+            Objetivo
+            <input type="text" id="goal" />
+          </label>
+      
+          <label>
+            Fecha de inicio
+            <input type="date" id="start_date" />
+          </label>
+      
+          <button type="submit">Guardar perfil</button>
+        </form>
+
+    </section> -->
+</body>
+<script type="module" src="js/main.js"></script>
+<script type="module" src="./js/user.js"></script>
+<script type="module" src="./js/profile-view.js"></script>
+<script type="module" src="./js/strength.js"></script>
+<script type="module" src="./js/calisthenics.js"></script>
+<script type="module" src="./js/measurements.js"></script>
+<script type="module" src="./js/dashboard.js"></script>
+<script type="module" src="./js/tips.js"></script>
+<script type="module" src="./js/backup-manager.js"></script>
+<script type="module" src="./js/entries/entries-view.js"></script>
+<script type="module" src="./js/entries/user-form.js"></script>
+<script type="module" src="./js/entries/measurements-form.js"></script>
+<script type="module" src="./js/entries/strength-form.js"></script>
+<script type="module" src="./js/notifications.js"></script>
+<!-- SEEDERS -->
+<!-- <script type="module" src="./js/seeders/seed-strength.js"></script> -->
+<!-- <script type="module" src="./js/seeders/seed-calisthenics.js"></script> -->
+<!-- <script type="module" src="./js/seeders/seed-measurements.js"></script> -->
+
+</html>

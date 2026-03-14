@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="../../../">
+
+    <title>Project Template - Angel Dittrich</title>
+    <meta name="description" content="Project details.">
+    <link rel="icon" href="assets/icons/dittrich-logo-icon.png" type="image/x-icon">
+
+    <!-- Core Styles -->
+    <link rel="stylesheet" href="../../../styles.css">
+    <link rel="stylesheet" href="../../../page-transitions.css">
+    <!-- Project Styles -->
+    <link rel="stylesheet" href="workshop/projects/template/template.css">
+    <link rel="stylesheet" href="workshop/projects/foodie/foodie.css">
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="project-page page-transition-enter-start">
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="left-header-section">
+                <a href="../../../index.html" class="dittrich-logo-link">
+                    <img class="dittrich-logo" src="assets/images/dittrich-logo-nobck.png" alt="Dittrich">
+                </a>
+                <div class="header-text-section building-at">
+                    <p class="header-text-top">Building at</p>
+                    <a href="https://syscom.mx" class="header-text-bottom" target="_blank">Syscom</a>
+                </div>
+                <div class="header-text-section studying-at">
+                    <p class="header-text-top">Studying at</p>
+                    <p class="header-text-bottom">UTCH BIS</p>
+                </div>
+                <div class="header-text-section speaking">
+                    <p class="header-text-top">Speaking</p>
+                    <p class="header-text-bottom">ES EN FR</p>
+                </div>
+            </div>
+            <a href="../../../contact/contact.html" class="contact-me" aria-label="Get in touch">Get in touch</a>
+        </div>
+    </header>
+
+    <div class="page-wrapper">
+
+        <!-- Project Hero -->
+        <div class="project-hero">
+            <img src="assets/images/proyecta-hero-img.png" alt="Proyecta UTCH Student Portal Redesign">
+            <div class="hero-overlay">
+                <div class="fade-up">
+                    <h1 class="project-title">Proyecta UTCH</h1>
+                    <p class="project-subtitle">
+                        Student Portal UI/UX Refactor • Accessibility & Frontend Architecture
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    
+        <!-- Main Content -->
+        <article class="project-content">
+    
+            <p class="project-intro fade-up">
+                Proyecta UTCH is a frontend-focused refactoring project for the student portal of the Universidad Tecnológica de
+                Chihuahua. The original system suffered from severe usability, accessibility, and visual consistency issues.
+                This project redesigns the interface from a user-centered perspective, prioritizing clarity, accessibility,
+                and maintainable frontend architecture while preserving the original system’s intent.
+            </p>
+    
+            <div class="content-block fade-up">
+                <h3>The Challenge</h3>
+                <p>
+                    The legacy portal presented multiple critical problems: a fragmented visual hierarchy, broken layouts across
+                    screen sizes, low contrast text, and unintuitive navigation flows. Several UI components behaved inconsistently,
+                    and accessibility considerations were largely absent, making the system difficult to use for a significant
+                    portion of students.
+                </p>
+                <p>
+                    Additionally, the frontend architecture was tightly coupled and hard to maintain. Styles were duplicated,
+                    component boundaries were unclear, and small visual changes often caused unexpected regressions elsewhere
+                    in the interface.
+                </p>
+                <p>
+                    The challenge was to refactor the frontend without changing backend logic, delivering a modern, accessible,
+                    and visually coherent interface that could scale and be maintained long-term.
+                </p>
+            </div>
+    
+            <!-- Image Grid -->
+            <div class="order-rate-img">
+                <img src="assets/images/proyecta-old-dashboard.png" alt="Proyecta Old Dashboard">
+            </div>
+    
+            <!-- Solution -->
+            <div class="content-block fade-up">
+                <h3>The Solution</h3>
+                <p>
+                    The system was rebuilt using a mobile-first, component-based frontend approach. Semantic HTML was introduced
+                    to improve document structure and screen reader compatibility, while a global CSS architecture based on
+                    design tokens and custom properties ensures visual consistency across the platform.
+                </p>
+                <p>
+                    Critical UI elements were decomposed into reusable components, each with its own scoped styles. This separation
+                    significantly improves maintainability and reduces unintended side effects when updating or extending the
+                    interface.
+                </p>
+                <p>
+                    The redesign adheres to WCAG 2.1 Level AA accessibility standards, including keyboard navigation, visible focus
+                    states, proper color contrast, reduced-motion support, and explicit form labeling. The result is an interface
+                    that is not only visually improved, but functionally inclusive.
+                </p>
+            </div>
+
+            <!-- Image Grid -->
+            <div class="order-rate-img">
+                <img src="assets/images/proyecta-services.png" alt="Proyecta Old Dashboard">
+            </div>
+
+            <div class="content-block fade-up">
+                <h3>Design & UX Decisions</h3>
+                <p>
+                    A clear visual hierarchy was established using scalable typography and spacing systems. Interactive elements
+                    were redesigned to provide immediate feedback and predictable behavior, reducing cognitive load for users.
+                </p>
+                <p>
+                    The layout adapts fluidly across devices, ensuring that students can access services comfortably from mobile,
+                    tablet, or desktop environments. Touch targets, spacing, and navigation patterns were optimized for real-world
+                    usage rather than purely aesthetic considerations.
+                </p>
+            </div>
+
+    
+            <!-- Impact -->
+            <div class="content-block fade-up">
+                <h3>Impact & Results</h3>
+                <p>
+                    The refactored portal delivers a significantly improved user experience, with better readability, navigation,
+                    and overall usability. The system now behaves consistently across browsers and screen sizes, reducing friction
+                    for daily student interactions.
+                </p>
+                <p>
+                    From an engineering perspective, the new frontend architecture enables easier iteration, clearer separation
+                    of concerns, and long-term scalability. The project demonstrates the practical application of accessibility
+                    standards, modern CSS architecture, and user-centered design in an academic institutional context.
+                </p>
+            </div>
+
+    
+            <!-- Final Image -->
+            <img class="full-width-image fade-up" src="assets/images/foodie-landing.jpg" alt="Foodie Final Interface">
+    
+        </article>
+    </div>
+    
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="memoji">
+            <video draggable="false" autoplay loop muted playsinline aria-label="Angel Dittrich animated emoji"
+                preload="metadata">
+                <source src="assets/videos/EmojiMovie.webm" type="video/webm">
+            </video>
+        </div>
+
+        <div class="presentation">
+            <h3 class="my-name">ANGEL DITTRICH</h3>
+            <div class="scroll-wrapper" aria-hidden="true">
+                <div class="scroll-track">
+                    <span> PRODUCT BUILDER, ENTHUSIAST, CREATIVE, DESIGNER, SOFTWARE DEVELOPER, FRONTEND, BACKEND,
+                        FUNNY, INNOVATIVE • </span>
+                    <span> PRODUCT BUILDER, ENTHUSIAST, CREATIVE, DESIGNER, SOFTWARE DEVELOPER, FRONTEND, BACKEND,
+                        FUNNY, INNOVATIVE • </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-btn" id="menuBtn" aria-label="Toggle navigation menu" aria-expanded="false"
+            aria-controls="menuDropdown">
+            <span class="menu-lines m-l-1" aria-hidden="true"></span>
+            <span class="menu-lines m-l-2" aria-hidden="true"></span>
+            <span class="menu-lines m-l-3" aria-hidden="true"></span>
+        </div>
+    </nav>
+
+    <div class="menu-dropdown" id="menuDropdown" role="navigation" aria-label="Main navigation menu">
+        <ul>
+            <li><a href="#section-one" aria-label="Go to home section">Home</a></li>
+            <li><a href="#section-two" aria-label="Go to about me section">About me</a></li>
+            <li><a href="#work-section" aria-label="Go to projects section">Projects</a></li>
+            <li><a href="../../../contact/contact.html" aria-label="Go to contact section">Contact</a></li>
+            <li><a href="workshop/workshop.html" aria-label="Workshop">Workshop</a></li>
+        </ul>
+    </div>
+
+    <!-- Simple observer for generic fade-up elements on this page -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+    <!-- Main JS -->
+    <script src="../../../scripts/page-transitions.js"></script>
+    <script type="module" src="scripts/index.js"></script>
+</body>
+
+</html>

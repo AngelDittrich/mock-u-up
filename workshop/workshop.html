@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Workshop - Angel Dittrich</title>
+    <!-- Basic meta tags from index.html -->
+    <meta name="description" content="Workshop and experiments by Angel Dittrich.">
+    <link rel="icon" href="../assets/icons/dittrich-logo-icon.png" type="image/x-icon">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../page-transitions.css">
+    <link rel="stylesheet" href="workshop.css">
+
+    <!-- Preload GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="page-transition-enter-start">
+
+    <!-- Header Reuse -->
+    <header>
+        <div class="header-container">
+            <div class="left-header-section">
+                <a href="../index.html" class="dittrich-logo-link">
+                    <img class="dittrich-logo" src="../assets/images/dittrich-logo-nobck.png" alt="Dittrich">
+                </a>
+                <div class="header-text-section building-at">
+                    <p class="header-text-top">Building at</p>
+                    <a href="https://syscom.mx" class="header-text-bottom" target="_blank">Syscom</a>
+                </div>
+                <div class="header-text-section studying-at">
+                    <p class="header-text-top">Studying at</p>
+                    <p class="header-text-bottom">UTCH BIS</p>
+                </div>
+                <div class="header-text-section speaking">
+                    <p class="header-text-top">Speaking</p>
+                    <p class="header-text-bottom">ES EN FR</p>
+                </div>
+            </div>
+            <a href="../contact/contact.html" class="contact-me" aria-label="Get in touch">Get in touch</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="workshop-container page-wrapper">
+        <!-- =========================== Col 1 =========================== -->
+        <div class="workshop-column col-1">
+            <!-- M-AI -->
+            <a href="projects/template/template.html" class="project-card" aria-label="M-AI Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <video src="" muted loop playsinline preload="none" aria-hidden="true"></video>
+                    <img src="../assets/M-AI/M-IA-new.webp" alt="M-AI Project Screenshot" draggable="false"
+                        loading="lazy">
+                </div>
+
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/M-AI/logo-mai.png" alt="M-AI Logo" draggable="false" loading="lazy">
+                            <p class="author-name">M-AI</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product & Service</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>
+                            PM, Creator, UI, UX, React, CSS Vanilla,
+                            GSAP, Animations, API, React Components, Hostinger,
+                            Raspberry, Sensors, Actuators, Nginx, Cloudflare, AWS
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- FOODIE -->
+            <a href="projects/foodie/foodie.html" class="project-card" aria-label="Foodie project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/foodie-landing.jpg" alt="Foodie landing" draggable="false"
+                        loading="lazy">
+                </div>
+
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/foodie-logo.jpg" alt="Syscom Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Foodie</p>
+                        </div>
+                        <div class="meta">
+                            <p>Service</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>
+                            PM, Creator, Design, Architecture,
+                            Backend, Strategy, UX, UI, Frontend,
+                            Integration, CSS, Animations,
+                            Hostinger, SSL, API, Database, Performance,
+                            Analytics,
+                        </p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- SYSCOM -->
+            <a href="projects/template/template.html" class="project-card" aria-label="Syscom Scheduler Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <video src="../assets/videos/trackstack-preview-compressed.mp4" muted loop playsinline
+                        preload="none" aria-hidden="true"></video>
+                    <img src="../assets/Syscom/syscom-reference.png" alt="Syscom Scheduler Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/Syscom/syscom_logo.png" alt="Syscom Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Syscom Scheduler</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, Design, Architecture, Backend, Strategy, UX, UI</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- UI/UX Essay -->
+            <a href="projects/UIUX/index.html" class="project-card" aria-label="UI/UX Essay Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/essayuiux.png" alt="UI/UX Essay Project Screenshot" draggable="false"
+                        loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">UI/UX Essay</p>
+                        </div>
+                        <div class="meta">
+                            <p>Blog</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>UX, UI, Design, Strategy, UX, UI, Blog</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Emotional Intelligence Essay -->
+            <a href="projects/emo-Int/index.html" class="project-card"
+                aria-label="Emotional Intelligence Essay Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/emotionalInt.png" alt="Emotional Intelligence Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Emotional Intelligence</p>
+                        </div>
+                        <div class="meta">
+                            <p>Blog</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>UX, UI, Psychology, SWE, Blog, Writing</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Task Manager -->
+            <a href="projects/taskmanager/taskmanager.html" class="project-card" aria-label="Task Manager Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/taskmanagerdashboard.png" alt="Task Manager Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Task Manager</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product & Service</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, UI, UX, React, CSS Vanilla,
+                            GSAP, Animations, API, React Components, Vercel,
+                            Node.js, Express.js, MongoDB, Render</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Proyecta -->
+            <a href="projects/proyecta/proyecta.html" class="project-card" aria-label="Task Manager Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/proyecta-migration.png" alt="Task Manager Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="https://bis.utch.edu.mx/wp-content/uploads/sites/6/2021/03/cazadorNW.png"
+                                alt="UTCH Logo" draggable="false" loading="lazy">
+                            <p class="author-name">UTCH</p>
+                        </div>
+                        <div class="meta">
+                            <p>Redesign Idea</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>CSS, HTML, JS, Local, Git, GitHub, Animations, Migration, Improvement, Redesign, Figma,
+                            WireFrame, UX, UI, </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- =========================== Col 2 =========================== -->
+        <div class="workshop-column col-2">
+
+            <!-- M-AI -->
+            <a href="projects/template/template.html" class="project-card" aria-label="M-AI Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <video src="" muted loop playsinline preload="none" aria-hidden="true"></video>
+                    <img src="../assets/M-AI/M-IA-new.webp" alt="M-AI Project Screenshot" draggable="false"
+                        loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/M-AI/logo-mai.png" alt="M-AI Logo" draggable="false" loading="lazy">
+                            <p class="author-name">M-AI</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product & Service</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, UI, UX, React, CSS Vanilla, GSAP, Animations</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- SYSCOM -->
+            <a href="projects/template/template.html" class="project-card" aria-label="Syscom Scheduler Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <video src="../assets/videos/trackstack-preview-compressed.mp4" muted loop playsinline
+                        preload="none" aria-hidden="true"></video>
+                    <img src="../assets/Syscom/syscom-reference.png" alt="Syscom Scheduler Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/Syscom/syscom_logo.png" alt="Syscom Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Syscom Scheduler</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, Design, Architecture, Backend, Strategy, UX, UI</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- UI/UX Essay -->
+            <a href="projects/UIUX/index.html" class="project-card" aria-label="UI/UX Essay Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/essayuiux.png" alt="UI/UX Essay Project Screenshot" draggable="false"
+                        loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">UI/UX Essay</p>
+                        </div>
+                        <div class="meta">
+                            <p>Blog</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>UX, UI, Design, Strategy, UX, UI, Blog</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Emotional Intelligence Essay -->
+            <a href="projects/emo-Int/index.html" class="project-card"
+                aria-label="Emotional Intelligence Essay Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/emotionalInt.png" alt="Emotional Intelligence Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Emotional Intelligence</p>
+                        </div>
+                        <div class="meta">
+                            <p>Blog</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>UX, UI, Psychology, SWE, Blog, Writing</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Task Manager -->
+            <a href="projects/taskmanager/taskmanager.html" class="project-card" aria-label="Task Manager Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/taskmanagerdashboard.png" alt="Task Manager Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Task Manager</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product & Service</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, UI, UX, React, CSS Vanilla,
+                            GSAP, Animations, API, React Components, Vercel,
+                            Node.js, Express.js, MongoDB, Render, MongoDB</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Proyecta -->
+            <a href="projects/proyecta/proyecta.html" class="project-card" aria-label="Task Manager Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/proyecta-migration.png" alt="Task Manager Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="https://bis.utch.edu.mx/wp-content/uploads/sites/6/2021/03/cazadorNW.png"
+                                alt="UTCH Logo" draggable="false" loading="lazy">
+                            <p class="author-name">UTCH</p>
+                        </div>
+                        <div class="meta">
+                            <p>Redesign Idea</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>CSS, HTML, JS, Local, Git, GitHub, Animations, Migration, Improvement, Redesign, Figma,
+                            WireFrame, UX, UI, </p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Foodie -->
+            <a href="projects/foodie/foodie.html" class="project-card" aria-label="Foodie project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/foodie-landing.jpg" alt="Foodie landing" draggable="false"
+                        loading="lazy">
+                </div>
+
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/foodie-logo.jpg" alt="Syscom Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Foodie</p>
+                        </div>
+                        <div class="meta">
+                            <p>Service</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>
+                            PM, Creator, Design, Architecture,
+                            Backend, Strategy, UX, UI, Frontend,
+                            Integration, CSS, Animations,
+                            Hostinger, SSL, API, Database, Performance,
+                            Analytics,
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- =========================== Col 3 =========================== -->
+        <div class="workshop-column col-3">
+            <!-- SYSCOM -->
+            <a href="projects/template/template.html" class="project-card" aria-label="Syscom Scheduler Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <video src="../assets/videos/trackstack-preview-compressed.mp4" muted loop playsinline
+                        preload="none" aria-hidden="true"></video>
+                    <img src="../assets/Syscom/syscom-reference.png" alt="Syscom Scheduler Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/Syscom/syscom_logo.png" alt="Syscom Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Syscom Scheduler</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, Design, Architecture, Backend, Strategy, UX, UI</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- UI/UX Essay -->
+            <a href="projects/UIUX/index.html" class="project-card" aria-label="UI/UX Essay Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/essayuiux.png" alt="UI/UX Essay Project Screenshot" draggable="false"
+                        loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">UI/UX Essay</p>
+                        </div>
+                        <div class="meta">
+                            <p>Blog</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>UX, UI, Design, Strategy, UX, UI, Blog</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Emotional Intelligence Essay -->
+            <a href="projects/emo-Int/index.html" class="project-card"
+                aria-label="Emotional Intelligence Essay Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/emotionalInt.png" alt="Emotional Intelligence Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Emotional Intelligence</p>
+                        </div>
+                        <div class="meta">
+                            <p>Blog</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>UX, UI, Psychology, SWE, Blog, Writing</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Task Manager -->
+            <a href="projects/taskmanager/taskmanager.html" class="project-card" aria-label="Task Manager Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/taskmanagerdashboard.png" alt="Task Manager Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/dittrich-logo.png" alt="Dittrich Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Task Manager</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product & Service</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, UI, UX, React, CSS Vanilla,
+                            GSAP, Animations, API, React Components, Vercel,
+                            Node.js, Express.js, MongoDB, Render, MongoDB</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Proyecta -->
+            <a href="projects/proyecta/proyecta.html" class="project-card" aria-label="Task Manager Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/proyecta-migration.png" alt="Task Manager Project Screenshot"
+                        draggable="false" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="https://bis.utch.edu.mx/wp-content/uploads/sites/6/2021/03/cazadorNW.png"
+                                alt="UTCH Logo" draggable="false" loading="lazy">
+                            <p class="author-name">UTCH</p>
+                        </div>
+                        <div class="meta">
+                            <p>Redesign Idea</p>
+                            <p>2026</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>CSS, HTML, JS, Local, Git, GitHub, Animations, Migration, Improvement, Redesign, Figma,
+                            WireFrame, UX, UI, </p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- M-AI -->
+            <a href="projects/template/template.html" class="project-card" aria-label="M-AI Project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <video src="" muted loop playsinline preload="none" aria-hidden="true"></video>
+                    <img src="../assets/M-AI/M-IA-new.webp" alt="M-AI Project Screenshot" draggable="false"
+                        loading="lazy">
+                </div>
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/M-AI/logo-mai.png" alt="M-AI Logo" draggable="false" loading="lazy">
+                            <p class="author-name">M-AI</p>
+                        </div>
+                        <div class="meta">
+                            <p>Product & Service</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>PM, Creator, UI, UX, React, CSS Vanilla, GSAP, Animations</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Foodie -->
+            <a href="projects/foodie/foodie.html" class="project-card" aria-label="Foodie project">
+                <div class="project-media">
+                    <div class="overlay"></div>
+                    <img src="../assets/images/foodie-landing.jpg" alt="Foodie landing" draggable="false"
+                        loading="lazy">
+                </div>
+
+                <div class="project-info">
+                    <div class="project-header">
+                        <div class="author">
+                            <img src="../assets/images/foodie-logo.jpg" alt="Syscom Logo" draggable="false"
+                                loading="lazy">
+                            <p class="author-name">Foodie</p>
+                        </div>
+                        <div class="meta">
+                            <p>Service</p>
+                            <p>2025</p>
+                        </div>
+                    </div>
+                    <div class="tags-scroll">
+                        <p>
+                            PM, Creator, Design, Architecture,
+                            Backend, Strategy, UX, UI, Frontend,
+                            Integration, CSS, Animations,
+                            Hostinger, SSL, API, Database, Performance,
+                            Analytics,
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <!-- Navbar Reuse -->
+    <nav class="navbar">
+        <div class="memoji">
+            <video draggable="false" autoplay loop muted playsinline aria-label="Angel Dittrich animated emoji"
+                preload="metadata">
+                <source src="../assets/videos/EmojiMovie.webm" type="video/webm">
+            </video>
+        </div>
+
+        <div class="presentation">
+            <h3 class="my-name">ANGEL DITTRICH</h3>
+            <div class="scroll-wrapper" aria-hidden="true">
+                <div class="scroll-track">
+                    <span> PRODUCT BUILDER, ENTHUSIAST, CREATIVE, DESIGNER, SOFTWARE DEVELOPER, FRONTEND, BACKEND,
+                        FUNNY, INNOVATIVE • </span>
+                    <span> PRODUCT BUILDER, ENTHUSIAST, CREATIVE, DESIGNER, SOFTWARE DEVELOPER, FRONTEND, BACKEND,
+                        FUNNY, INNOVATIVE • </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-btn" id="menuBtn" aria-label="Toggle navigation menu" aria-expanded="false"
+            aria-controls="menuDropdown">
+            <span class="menu-lines m-l-1" aria-hidden="true"></span>
+            <span class="menu-lines m-l-2" aria-hidden="true"></span>
+            <span class="menu-lines m-l-3" aria-hidden="true"></span>
+        </div>
+    </nav>
+
+    <div class="menu-dropdown" id="menuDropdown" role="navigation" aria-label="Main navigation menu">
+        <ul>
+            <li><a href="../index.html#section-one" aria-label="Go to home section">Home</a></li>
+            <li><a href="../index.html#section-two" aria-label="Go to about me section">About me</a></li>
+            <li><a href="../index.html#work-section" aria-label="Go to projects section">Projects</a></li>
+            <li><a href="../contact/contact.html" aria-label="Go to contact section">Contact</a></li>
+            <li><a href="workshop.html" aria-label="Workshop">Workshop</a></li>
+        </ul>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../scripts/page-transitions.js"></script>
+    <script type="module" src="../scripts/index.js"></script>
+</body>
+
+</html>

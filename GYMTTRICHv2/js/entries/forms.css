@@ -1,0 +1,562 @@
+/* ---------- ENTRIES HUB ---------- */
+
+.entries-hub {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 8px;
+}
+
+/* ---------- OVERLAY ---------- */
+
+.entries-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+
+    display: flex;
+    justify-content: flex-end;
+}
+
+.entries-overlay.hidden {
+    pointer-events: none;
+    opacity: 0;
+}
+
+/* ---------- MODAL ---------- */
+
+.entries-modal {
+    height: 100%;
+    width: min(100%, 520px);
+    background: var(--bg-app);
+    border-left: 1px solid var(--border);
+
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(.4, 0, .2, 1);
+}
+
+.entries-overlay.active .entries-modal {
+    transform: translateX(0);
+}
+
+/*  --------- UI de las cartas ---------  */
+
+.entry-card {
+    position: relative;
+    padding: 32px 28px;
+    border-radius: var(--radius-l);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 200px;
+
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.entry-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--card-gradient-start), var(--card-gradient-end));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.entry-card:hover::before {
+    opacity: 1;
+}
+
+.entry-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, var(--card-glow), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.entry-card:hover::after {
+    opacity: 0.15;
+}
+
+.entry-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.entry-card:active {
+    transform: translateY(-4px) scale(1.01);
+}
+
+/* Icon Container */
+.entry-card i {
+    font-size: 3rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-m);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--card-icon-color);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.entry-card:hover i {
+    transform: scale(1.1) rotate(5deg);
+    background: var(--card-icon-bg);
+    box-shadow:
+        0 8px 24px var(--card-icon-shadow),
+        0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+/* Text Content */
+.entry-card h3 {
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+    letter-spacing: -0.5px;
+    transition: color 0.3s ease;
+}
+
+.entry-card:hover h3 {
+    color: var(--card-title-hover);
+}
+
+.entry-card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+
+/* Unique Card Themes */
+
+/* User Profile Card - Purple/Indigo */
+.entry-card[data-entry="user"] {
+    --card-gradient-start: #8b5cf6;
+    --card-gradient-end: #6366f1;
+    --card-glow: rgba(139, 92, 246, 0.4);
+    --card-icon-color: #a78bfa;
+    --card-icon-bg: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(99, 102, 241, 0.2));
+    --card-icon-shadow: rgba(139, 92, 246, 0.4);
+    --card-title-hover: #a78bfa;
+}
+
+/* Measurements Card - Cyan/Teal */
+.entry-card[data-entry="measurements"] {
+    --card-gradient-start: #06b6d4;
+    --card-gradient-end: #14b8a6;
+    --card-glow: rgba(6, 182, 212, 0.4);
+    --card-icon-color: #22d3ee;
+    --card-icon-bg: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(20, 184, 166, 0.2));
+    --card-icon-shadow: rgba(6, 182, 212, 0.4);
+    --card-title-hover: #22d3ee;
+}
+
+/* Calisthenics Card - Orange/Amber */
+.entry-card[data-entry="calisthenics"] {
+    --card-gradient-start: #f59e0b;
+    --card-gradient-end: #f97316;
+    --card-glow: rgba(245, 158, 11, 0.4);
+    --card-icon-color: #fbbf24;
+    --card-icon-bg: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(249, 115, 22, 0.2));
+    --card-icon-shadow: rgba(245, 158, 11, 0.4);
+    --card-title-hover: #fbbf24;
+}
+
+/* Strength Card - Red/Pink */
+.entry-card[data-entry="strength"] {
+    --card-gradient-start: #ef4444;
+    --card-gradient-end: #ec4899;
+    --card-glow: rgba(239, 68, 68, 0.4);
+    --card-icon-color: #f87171;
+    --card-icon-bg: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(236, 72, 153, 0.2));
+    --card-icon-shadow: rgba(239, 68, 68, 0.4);
+    --card-title-hover: #f87171;
+}
+
+/* Add a subtle pattern overlay */
+.entry-card {
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .entries-hub {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .entry-card {
+        min-height: 160px;
+        padding: 24px 20px;
+    }
+
+    .entry-card i {
+        font-size: 2.5rem;
+        width: 64px;
+        height: 64px;
+    }
+
+    .entry-card h3 {
+        font-size: 1.2rem;
+    }
+}
+
+
+/* ---------- Formulario de entries ---------- */
+
+.entry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.form-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--text-muted);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+    padding: 0.75rem;
+    border-radius: var(--radius-m);
+    border: 1px solid var(--border);
+    background: var(--bg-input);
+    color: var(--text);
+}
+
+.form-submit {
+    margin-top: auto;
+    padding: 1rem;
+    border-radius: var(--radius-m);
+    border: none;
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ---------- ENTRIES OVERLAY ---------- */
+
+#entries-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    z-index: 1000;
+
+    display: flex;
+    justify-content: flex-end;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+#entries-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ---------- MODAL ---------- */
+
+#entries-modal {
+    width: min(520px, 100%);
+    height: 100%;
+    background: var(--bg-card);
+
+    padding: 2rem 1.75rem 2.5rem;
+
+    box-shadow: -12px 0 40px rgba(0, 0, 0, 0.35);
+
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(.4, 0, .2, 1);
+
+    overflow: auto;
+}
+
+#entries-overlay.active #entries-modal {
+    transform: translateX(0);
+}
+
+/* ---------- FORM BASE ---------- */
+
+.entry-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+
+/* ---------- INPUTS ---------- */
+
+.entry-form input,
+.entry-form select {
+    width: 100%;
+    height: 46px;
+    padding: 0 0.9rem;
+
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: var(--radius-m);
+
+    color: var(--text-primary);
+    font-size: 0.95rem;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.entry-form input::placeholder {
+    color: var(--text-muted);
+}
+
+.entry-form input:focus,
+.entry-form select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(var(--accent-rgb), 0.25);
+}
+
+/* ---------- FORM SECTIONS ---------- */
+
+.form-section-title {
+    margin-top: 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* ---------- FORM GRID ---------- */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem;
+}
+
+@media (max-width: 420px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- BACKUP SECTION ---------- */
+
+.backup-section {
+    margin-top: 48px;
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(94, 106, 210, 0.05), rgba(38, 198, 218, 0.05));
+    border: 1px solid rgba(94, 106, 210, 0.2);
+    border-radius: var(--radius-l);
+    position: relative;
+    overflow: hidden;
+}
+
+.backup-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.backup-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-head);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 12px;
+}
+
+.backup-title i {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.backup-description {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.backup-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.backup-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-m);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-family: var(--font-body);
+}
+
+.backup-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.backup-btn:active {
+    transform: translateY(-2px);
+}
+
+.backup-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.backup-btn i {
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.backup-btn:hover i {
+    transform: scale(1.1);
+}
+
+.backup-btn span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.backup-btn small {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.export-btn {
+    background: linear-gradient(135deg, rgba(0, 230, 118, 0.1), rgba(0, 230, 118, 0.05));
+    border-color: rgba(0, 230, 118, 0.3);
+}
+
+.export-btn i {
+    color: var(--success);
+}
+
+.export-btn:hover {
+    background: linear-gradient(135deg, rgba(0, 230, 118, 0.15), rgba(0, 230, 118, 0.08));
+    border-color: rgba(0, 230, 118, 0.5);
+}
+
+.import-btn {
+    background: linear-gradient(135deg, rgba(94, 106, 210, 0.1), rgba(94, 106, 210, 0.05));
+    border-color: rgba(94, 106, 210, 0.3);
+}
+
+.import-btn i {
+    color: var(--primary);
+}
+
+.import-btn:hover {
+    background: linear-gradient(135deg, rgba(94, 106, 210, 0.15), rgba(94, 106, 210, 0.08));
+    border-color: rgba(94, 106, 210, 0.5);
+}
+
+/* Spinner animation */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.backup-btn .ph-spinner {
+    animation: spin 1s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .backup-section {
+        padding: 24px 20px;
+        margin-top: 32px;
+    }
+
+    .backup-title {
+        font-size: 1.3rem;
+    }
+
+    .backup-actions {
+        grid-template-columns: 1fr;
+    }
+}
