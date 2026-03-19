@@ -4,6 +4,7 @@ import { Colors } from '@/constants/theme';
 import { Card } from '@/components/ui/Card';
 import { Ruler, Users, Target } from 'phosphor-react-native';
 import { BarChart } from 'react-native-chart-kit';
+import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -20,14 +21,14 @@ export default function MeasuresScreen() {
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-            <View style={styles.header}>
+            <Animated.View entering={FadeIn.duration(400)} style={styles.header}>
                 <View>
                     <Text style={styles.title}>Body Profile</Text>
                     <Text style={styles.subtitle}>Detailed measurements and skinfolds history</Text>
                 </View>
-            </View>
+            </Animated.View>
 
-            <View style={styles.bentoGrid}>
+            <Animated.View entering={FadeInDown.delay(100).duration(500)} style={styles.bentoGrid}>
                 <Card style={styles.bentoCard}>
                     <View style={styles.profileIcon}><Ruler size={24} color={Colors.dark.primary} /></View>
                     <Text style={styles.label}>Height</Text>
@@ -43,48 +44,49 @@ export default function MeasuresScreen() {
                     <Text style={styles.label}>Goal</Text>
                     <Text style={styles.value}>Hypertrophy</Text>
                 </Card>
-            </View>
+            </Animated.View>
 
-            <Text style={styles.sectionTitle}>Measurement History</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tableContainer}>
-                <View style={styles.table}>
-                    <View style={styles.tableHeader}>
-                        {['Date', 'Weight', 'Arm', 'Chest', 'Abd', 'Leg', 'Calf'].map((col, idx) => (
-                            <Text key={`col-${idx}`} style={styles.th}>{col}</Text>
+            <Animated.View entering={FadeInDown.delay(200).duration(500)}>
+                <Text style={styles.sectionTitle}>Measurement History</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tableContainer}>
+                    <View style={styles.table}>
+                        <View style={styles.tableHeader}>
+                            {['Date', 'Weight', 'Arm', 'Chest', 'Abd', 'Leg', 'Calf'].map((col, idx) => (
+                                <Text key={`col-${idx}`} style={styles.th}>{col}</Text>
+                            ))}
+                        </View>
+                        {[1, 2, 3].map(row => (
+                            <View key={`row-${row}`} style={styles.tableRow}>
+                                <Text style={styles.td}>2026-03-01</Text>
+                                <Text style={styles.td}>75.0</Text>
+                                <Text style={styles.td}>36.2</Text>
+                                <Text style={styles.td}>101</Text>
+                                <Text style={styles.td}>82</Text>
+                                <Text style={styles.td}>59</Text>
+                                <Text style={styles.td}>37</Text>
+                            </View>
                         ))}
                     </View>
-                    {[1, 2, 3].map(row => (
-                        <View key={`row-${row}`} style={styles.tableRow}>
-                            <Text style={styles.td}>2026-03-01</Text>
-                            <Text style={styles.td}>75.0</Text>
-                            <Text style={styles.td}>36.2</Text>
-                            <Text style={styles.td}>101</Text>
-                            <Text style={styles.td}>82</Text>
-                            <Text style={styles.td}>59</Text>
-                            <Text style={styles.td}>37</Text>
-                        </View>
-                    ))}
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </Animated.View>
 
-            <Text style={styles.sectionTitle}>Skinfolds (mm)</Text>
-            <Card style={styles.chartCardWrapper}>
-                <BarChart
-                    data={{
-                        labels: ["Biceps", "Subscapular", "Crest", "Abs", "Femoral"],
-                        datasets: [{ data: [4, 9, 12, 11, 8] }]
-                    }}
-                    width={screenWidth - 96}
-                    height={220}
-                    yAxisLabel=""
-                    yAxisSuffix=""
-                    chartConfig={{
-                        ...chartConfig,
-                        color: (opacity = 1) => `rgba(94, 106, 210, ${opacity})`
-                    }}
-                    style={{ marginVertical: 8, borderRadius: 16, marginLeft: -16 }}
-                />
-            </Card>
+            <Animated.View entering={FadeInDown.delay(300).duration(500)}>
+                <Text style={styles.sectionTitle}>Skinfolds (mm)</Text>
+                <Card style={styles.chartCardWrapper}>
+                    <BarChart
+                        data={{
+                            labels: ["Biceps", "Subscapular", "Crest", "Abs", "Femoral"],
+                            datasets: [{ data: [4, 9, 12, 11, 8] }]
+                        }}
+                        width={screenWidth - 96}
+                        height={220}
+                        yAxisLabel=""
+                        yAxisSuffix=""
+                        chartConfig={{ ...chartConfig, color: (opacity = 1) => `rgba(94, 106, 210, ${opacity})` }}
+                        style={{ marginVertical: 8, borderRadius: 16, marginLeft: -16 }}
+                    />
+                </Card>
+            </Animated.View>
         </ScrollView>
     );
 }

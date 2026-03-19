@@ -4,6 +4,7 @@ import { Colors } from '@/constants/theme';
 import { Card } from '@/components/ui/Card';
 import { HandFist, PersonArmsSpread, Chair, ArrowUp, Check, Timer } from 'phosphor-react-native';
 import { LineChart } from 'react-native-chart-kit';
+import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated';
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -21,14 +22,14 @@ export default function CalisthenicsScreen() {
 
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-            <View style={styles.header}>
+            <Animated.View entering={FadeIn.duration(400)} style={styles.header}>
                 <View>
                     <Text style={styles.title}>Calisthenics</Text>
                     <Text style={styles.subtitle}>Skill progression and endurance tracking</Text>
                 </View>
-            </View>
+            </Animated.View>
 
-            <View style={styles.bentoGrid}>
+            <Animated.View entering={FadeInDown.delay(100).duration(500)} style={styles.bentoGrid}>
                 <View style={styles.bentoCol}>
                     <Card style={[styles.calisthenicCard, { height: 160 }]}>
                         <View style={styles.cardHeader}>
@@ -88,25 +89,29 @@ export default function CalisthenicsScreen() {
                         </View>
                     </Card>
                 </View>
-            </View>
+            </Animated.View>
 
-            <Text style={styles.sectionTitle}>Progress Tracking</Text>
+            <Animated.View entering={FadeInDown.delay(200).duration(500)}>
+                <Text style={styles.sectionTitle}>Progress Tracking</Text>
+            </Animated.View>
 
-            <Card style={styles.chartCardWrapper}>
-                <Text style={styles.chartTitle}>Handstand Progress</Text>
-                <LineChart
-                    data={{
-                        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-                        datasets: [{ data: [5, 10, 15, 20, 25, 30] }]
-                    }}
-                    width={screenWidth - 96}
-                    height={220}
-                    yAxisSuffix="s"
-                    chartConfig={chartConfig}
-                    bezier
-                    style={{ marginVertical: 8, borderRadius: 16, marginLeft: -16 }}
-                />
-            </Card>
+            <Animated.View entering={FadeInDown.delay(300).duration(500)}>
+                <Card style={styles.chartCardWrapper}>
+                    <Text style={styles.chartTitle}>Handstand Progress</Text>
+                    <LineChart
+                        data={{
+                            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+                            datasets: [{ data: [5, 10, 15, 20, 25, 30] }]
+                        }}
+                        width={screenWidth - 96}
+                        height={220}
+                        yAxisSuffix="s"
+                        chartConfig={chartConfig}
+                        bezier
+                        style={{ marginVertical: 8, borderRadius: 16, marginLeft: -16 }}
+                    />
+                </Card>
+            </Animated.View>
         </ScrollView>
     );
 }
