@@ -15,3 +15,5 @@ app.listen(3000, () => console.log('Server corriendo'))
 const authRoutes = require('./src/routes/auth')
 
 app.use('/api/auth', authRoutes)
+const measurementsRoutes = require('./src/routes/measurements')
+app.use('/api/measurements', measurementsRoutes)

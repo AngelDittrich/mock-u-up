@@ -3,11 +3,16 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 
 exports.register = async (req, res) => {
+  console.log("IN REGISTER!");
+  console.log("SCHEMA:", Object.keys(User.schema.obj));
+  console.log("BODY:", req.body);
   const { email, password } = req.body
 
   const hashed = await bcrypt.hash(password, 10)
+  console.log("HASHED:", hashed);
 
   const user = await User.create({ email, password: hashed })
+  console.log("CREATED:", user);
 
   res.json(user)
 }
