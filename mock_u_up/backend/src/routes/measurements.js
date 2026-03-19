@@ -1,14 +1,22 @@
-const router = require('express').Router()
-const Measurement = require('../models/Measurement')
-const auth = require('../middleware/auth')
+const router = require('express').Router();
+const auth = require('../middleware/auth');
+const {
+  createMeasurement,
+  getMeasurements,
+  getMeasurementById,
+  updateMeasurement,
+  deleteMeasurement
+} = require('../controllers/measurementController');
 
-router.post('/', auth, async (req, res) => {
-  const data = await Measurement.create({
-    ...req.body,
-    userId: req.user.id
-  })
+router.use(auth);
 
-  res.json(data)
-})
+router.route('/')
+  .post(createMeasurement)
+  .get(getMeasurements);
 
-module.exports = router
+router.route('/:id')
+  .get(getMeasurementById)
+  .put(updateMeasurement)
+  .delete(deleteMeasurement);
+
+module.exports = router;
