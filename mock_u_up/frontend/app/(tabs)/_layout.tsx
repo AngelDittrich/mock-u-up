@@ -1,33 +1,60 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
+import { Platform } from 'react-native';
 import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { Barbell, ChartLineUp, Lightning, SquaresFour, Notepad } from 'phosphor-react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const colorScheme = 'dark'; // Forcing dark theme for this application
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: Colors[colorScheme].tint,
         headerShown: false,
-        tabBarButton: HapticTab,
+        tabBarStyle: {
+          backgroundColor: Colors[colorScheme].panel,
+          borderTopColor: Colors[colorScheme].border,
+          elevation: 0, // for Android
+          shadowOpacity: 0, // for iOS
+          height: Platform.OS === 'ios' ? 88 : 68,
+          paddingBottom: Platform.OS === 'ios' ? 28 : 12,
+          paddingTop: 12,
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Dashboard',
+          tabBarIcon: ({ color, size }) => <SquaresFour color={color} size={size} weight="fill" />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="measures"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Measures',
+          tabBarIcon: ({ color, size }) => <ChartLineUp color={color} size={size} weight="fill" />,
+        }}
+      />
+      <Tabs.Screen
+        name="forms"
+        options={{
+          title: 'Entries',
+          tabBarIcon: ({ color, size }) => <Notepad color={color} size={size} weight="fill" />,
+        }}
+      />
+      <Tabs.Screen
+        name="strength"
+        options={{
+          title: 'Strength',
+          tabBarIcon: ({ color, size }) => <Barbell color={color} size={size} weight="fill" />,
+        }}
+      />
+      <Tabs.Screen
+        name="calisthenics"
+        options={{
+          title: 'Calisthenics',
+          tabBarIcon: ({ color, size }) => <Lightning color={color} size={size} weight="fill" />,
         }}
       />
     </Tabs>

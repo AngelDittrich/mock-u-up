@@ -1,42 +1,59 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * GYMTTRICHv2 Theme Configuration
  */
 
 import { Platform } from 'react-native';
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const tintColorLight = '#5e6ad2';
+const tintColorDark = '#5e6ad2';
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    text: '#ffffff',
+    textMuted: '#94a3b8',
+    background: '#0f1115',
+    panel: '#181b21',
+    card: '#1f232b',
+    hover: '#2a2f3a',
+    border: '#2d3342',
+    primary: '#5e6ad2',
+    secondary: '#26c6da',
+    accent: '#ff7043',
+    success: '#00e676',
+    danger: '#ff5252',
     tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
+    icon: '#94a3b8',
+    tabIconDefault: '#94a3b8',
     tabIconSelected: tintColorLight,
+    best: 'rgb(29, 168, 29)'
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: '#ffffff',
+    textMuted: '#94a3b8',
+    background: '#0f1115',
+    panel: '#181b21',
+    card: '#1f232b',
+    hover: '#2a2f3a',
+    border: '#2d3342',
+    primary: '#5e6ad2',
+    secondary: '#26c6da',
+    accent: '#ff7043',
+    success: '#00e676',
+    danger: '#ff5252',
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: '#94a3b8',
+    tabIconDefault: '#94a3b8',
     tabIconSelected: tintColorDark,
+    best: 'rgb(29, 168, 29)'
   },
 };
 
 export const Fonts = Platform.select({
   ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+    sans: 'System',
+    serif: 'System',
+    rounded: 'System',
+    mono: 'System',
   },
   default: {
     sans: 'normal',

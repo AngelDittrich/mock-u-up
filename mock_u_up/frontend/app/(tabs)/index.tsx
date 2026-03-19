@@ -1,98 +1,151 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { Colors } from '@/constants/theme';
+import { Card } from '@/components/ui/Card';
+import { StatBadge } from '@/components/ui/StatBadge';
+import { GradientBar } from '@/components/ui/GradientBar';
+import { Scales, Heartbeat, Ruler } from 'phosphor-react-native';
+import { LineChart } from 'react-native-chart-kit';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
-
-export default function HomeScreen() {
+export default function DashboardScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.title}>Dashboard</Text>
+          <Text style={styles.subtitle}>Overview of your physical evolution</Text>
+        </View>
+      </View>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <View style={styles.statsGrid}>
+        <Card primary style={styles.cardWrapper}>
+          <StatBadge
+            label="Current Weight"
+            value="75"
+            unit="kg"
+            trend="up"
+            trendText="+1.2kg vs last"
+            icon={<Scales size={32} color={Colors.dark.primary} weight="duotone" />}
+          />
+        </Card>
+
+        <Card style={styles.cardWrapper}>
+          <StatBadge
+            label="BMI (IMC)"
+            value="22.5"
+            trendText="Normal"
+            icon={<Heartbeat size={32} color={Colors.dark.primary} weight="duotone" />}
+          />
+        </Card>
+
+        <Card style={styles.cardWrapper}>
+          <StatBadge
+            label="Key Gains (Last)"
+            value="Arm"
+            unit="+1cm"
+            trend="up"
+            icon={<Ruler size={32} color={Colors.dark.primary} weight="duotone" />}
+          />
+        </Card>
+      </View>
+
+      <View style={styles.progressContainer}>
+        <GradientBar label="Body Fat" position={3} />
+        <GradientBar label="Weight" position={5} />
+      </View>
+
+      <Card style={styles.chartCardWrapper}>
+        <Text style={styles.chartTitle}>Weight Evolution</Text>
+        <LineChart
+          data={{
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            datasets: [
+              {
+                data: [72, 72.5, 73, 73.8, 74.5, 75],
+                color: (opacity = 1) => `rgba(38, 198, 218, ${opacity})`,
+              }
+            ]
+          }}
+          width={Dimensions.get("window").width - 96} // from padding 24 on sides and card padding 24
+          height={220}
+          yAxisSuffix="kg"
+          chartConfig={{
+            backgroundColor: Colors.dark.card,
+            backgroundGradientFrom: Colors.dark.card,
+            backgroundGradientTo: Colors.dark.card,
+            decimalPlaces: 1,
+            color: (opacity = 1) => Colors.dark.textMuted,
+            labelColor: (opacity = 1) => Colors.dark.textMuted,
+            style: { borderRadius: 16 },
+            propsForDots: {
+              r: "4",
+              strokeWidth: "2",
+              stroke: Colors.dark.card
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+            marginLeft: -16
+          }}
+        />
+      </Card>
+
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
+    backgroundColor: Colors.dark.background,
   },
-  stepContainer: {
-    gap: 8,
+  content: {
+    padding: 24,
+    paddingTop: 60,
+    paddingBottom: 100, // accommodate tab bar
+  },
+  header: {
+    marginBottom: 32,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  title: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: Colors.dark.text,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  subtitle: {
+    fontSize: 16,
+    color: Colors.dark.textMuted,
   },
+  statsGrid: {
+    flexDirection: 'column',
+    gap: 16,
+    marginBottom: 32,
+  },
+  cardWrapper: {
+    marginBottom: 8,
+  },
+  progressContainer: {
+    marginBottom: 16,
+  },
+  chartCardWrapper: {
+    marginTop: 16,
+  },
+  chartTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: Colors.dark.text,
+    marginBottom: 16,
+  },
+  chartPlaceholder: {
+    height: 220,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    borderRadius: 12,
+  }
 });
