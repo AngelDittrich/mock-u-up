@@ -19,7 +19,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"email\": \"testuser@example.com\",\n    \"password\": \"password123\"\n}"
+              "raw": "{\n    \"username\": \"testuser\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"password123\",\n    \"age\": 25\n}"
             },
             "url": {
               "raw": "{{base_url}}/auth/register",
@@ -38,6 +38,13 @@
                   "var jsonData = pm.response.json();",
                   "if (jsonData.token) {",
                   "    pm.collectionVariables.set(\"token\", jsonData.token);",
+                  "}",
+                  "if (jsonData.user && jsonData.user.id) {",
+                  "    pm.collectionVariables.set(\"user_id\", jsonData.user.id);",
+                  "} else if (jsonData.user && jsonData.user._id) {",
+                  "    pm.collectionVariables.set(\"user_id\", jsonData.user._id);",
+                  "} else if (jsonData.userId) {",
+                  "    pm.collectionVariables.set(\"user_id\", jsonData.userId);",
                   "}"
                 ],
                 "type": "text/javascript"
@@ -66,6 +73,285 @@
       ]
     },
     {
+      "name": "User Info",
+      "item": [
+        {
+          "name": "Create User Info",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"date\": \"2026-03-20\",\n    \"weight\": 75.5,\n    \"height\": 180,\n    \"bodyType\": \"mesomorph\",\n    \"goal\": \"build muscle\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/userInfo",
+              "host": ["{{base_url}}"],
+              "path": ["userInfo"]
+            }
+          }
+        },
+        {
+          "name": "Get All User Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/userInfo",
+              "host": ["{{base_url}}"],
+              "path": ["userInfo"]
+            }
+          }
+        },
+        {
+          "name": "Get Single User Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/userInfo/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["userInfo", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Update User Info",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"weight\": 74.0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/userInfo/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["userInfo", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Delete User Info",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/userInfo/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["userInfo", "ENTER_ID_HERE"]
+            }
+          }
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Body Measurements",
+      "item": [
+        {
+          "name": "Create Body Measurement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"date\": \"2026-03-20\",\n    \"arm\": 35.5,\n    \"chest\": 100.0,\n    \"forearm\": 28.0,\n    \"abs\": 85.0,\n    \"hips\": 98.0,\n    \"leg\": 60.0,\n    \"calf\": 38.0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/bodyMeasurements",
+              "host": ["{{base_url}}"],
+              "path": ["bodyMeasurements"]
+            }
+          }
+        },
+        {
+          "name": "Get All Body Measurements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bodyMeasurements",
+              "host": ["{{base_url}}"],
+              "path": ["bodyMeasurements"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Body Measurement",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bodyMeasurements/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["bodyMeasurements", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Update Body Measurement",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"arm\": 36.0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/bodyMeasurements/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["bodyMeasurements", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Delete Body Measurement",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/bodyMeasurements/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["bodyMeasurements", "ENTER_ID_HERE"]
+            }
+          }
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Skin Fold Measurements",
+      "item": [
+        {
+          "name": "Create Skin Fold Measurement",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"date\": \"2026-03-20\",\n    \"biceps\": 5.0,\n    \"subscapular\": 12.0,\n    \"iliacCrest\": 15.0,\n    \"abs\": 10.0,\n    \"femoral\": 8.0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/skinFoldMeasurements",
+              "host": ["{{base_url}}"],
+              "path": ["skinFoldMeasurements"]
+            }
+          }
+        },
+        {
+          "name": "Get All Skin Fold Measurements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/skinFoldMeasurements",
+              "host": ["{{base_url}}"],
+              "path": ["skinFoldMeasurements"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Skin Fold Measurement",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/skinFoldMeasurements/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["skinFoldMeasurements", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Update Skin Fold Measurement",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"abs\": 9.5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/skinFoldMeasurements/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["skinFoldMeasurements", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Delete Skin Fold Measurement",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/skinFoldMeasurements/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["skinFoldMeasurements", "ENTER_ID_HERE"]
+            }
+          }
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
       "name": "Measurements",
       "item": [
         {
@@ -80,7 +366,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"weight\": 75.5,\n    \"bodyFat\": 18.2,\n    \"date\": \"2026-03-18\"\n}"
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"weight\": 75.5,\n    \"bodyFat\": 18.2,\n    \"date\": \"2026-03-20\"\n}"
             },
             "url": {
               "raw": "{{base_url}}/measurements",
@@ -125,7 +411,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"weight\": 74.0\n}"
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"weight\": 74.0\n}"
             },
             "url": {
               "raw": "{{base_url}}/measurements/ENTER_ID_HERE",
@@ -157,6 +443,192 @@
           }
         ]
       }
+    },
+    {
+      "name": "Calisthenics Workouts",
+      "item": [
+        {
+          "name": "Create Calisthenics Workout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"date\": \"2026-03-20\",\n    \"handstand\": 60,\n    \"pullups\": 20,\n    \"pushups\": 50,\n    \"l_sit\": 30,\n    \"v_sit\": 15\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/calisthenicsWorkouts",
+              "host": ["{{base_url}}"],
+              "path": ["calisthenicsWorkouts"]
+            }
+          }
+        },
+        {
+          "name": "Get All Calisthenics Workouts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/calisthenicsWorkouts",
+              "host": ["{{base_url}}"],
+              "path": ["calisthenicsWorkouts"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Calisthenics Workout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/calisthenicsWorkouts/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["calisthenicsWorkouts", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Update Calisthenics Workout",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"pullups\": 25\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/calisthenicsWorkouts/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["calisthenicsWorkouts", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Delete Calisthenics Workout",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/calisthenicsWorkouts/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["calisthenicsWorkouts", "ENTER_ID_HERE"]
+            }
+          }
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Weight Training Workouts",
+      "item": [
+        {
+          "name": "Create Weight Training Workout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"date\": \"2026-03-20\",\n    \"bench_press\": 80,\n    \"military_press\": 50,\n    \"pull_ups\": 15,\n    \"curl\": 35,\n    \"extension\": 40,\n    \"squat\": 100,\n    \"deadlift\": 120\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/weightTrainingWorkouts",
+              "host": ["{{base_url}}"],
+              "path": ["weightTrainingWorkouts"]
+            }
+          }
+        },
+        {
+          "name": "Get All Weight Training Workouts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/weightTrainingWorkouts",
+              "host": ["{{base_url}}"],
+              "path": ["weightTrainingWorkouts"]
+            }
+          }
+        },
+        {
+          "name": "Get Single Weight Training Workout",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/weightTrainingWorkouts/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["weightTrainingWorkouts", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Update Weight Training Workout",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"squat\": 105\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/weightTrainingWorkouts/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["weightTrainingWorkouts", "ENTER_ID_HERE"]
+            }
+          }
+        },
+        {
+          "name": "Delete Weight Training Workout",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/weightTrainingWorkouts/ENTER_ID_HERE",
+              "host": ["{{base_url}}"],
+              "path": ["weightTrainingWorkouts", "ENTER_ID_HERE"]
+            }
+          }
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{token}}",
+            "type": "string"
+          }
+        ]
+      }
     }
   ],
   "variable": [
@@ -167,6 +639,11 @@
     },
     {
       "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
       "value": "",
       "type": "string"
     }
